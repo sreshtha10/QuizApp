@@ -14,7 +14,7 @@ ___
 
 ## Screenshots
 
-<img src="https://github.com/sreshtha10/QuizApp/blob/master/screenshots/s1.jpg" width=50% height=50%>
+<img src="https://github.com/sreshtha10/QuizApp/blob/master/screenshots/s1.jpg" width=50% height=30%>
 
 
 
