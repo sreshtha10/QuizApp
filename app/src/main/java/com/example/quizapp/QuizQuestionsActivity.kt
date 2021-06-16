@@ -2,8 +2,10 @@ package com.example.quizapp
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.view.Gravity
 import android.widget.TextView
 import android.widget.Toast
@@ -199,16 +201,16 @@ class QuizQuestionsActivity : AppCompatActivity() {
             return
         }
 
-        val question = questionList?.get(currentPosition-1)?.question
+        val question = stringFilter(questionList?.get(currentPosition-1)?.question)
 
         binding.tvQuestion.text = question
 
         val quesoptions= mutableListOf<String?>()
 
-        quesoptions.add(questionList?.get(currentPosition-1)?.incorrect_answers?.get(0))
-        quesoptions.add(questionList?.get(currentPosition-1)?.incorrect_answers?.get(1))
-        quesoptions.add(questionList?.get(currentPosition-1)?.incorrect_answers?.get(2))
-        quesoptions.add(questionList?.get(currentPosition-1)?.correct_answer)
+        quesoptions.add(stringFilter(questionList?.get(currentPosition-1)?.incorrect_answers?.get(0)))
+        quesoptions.add(stringFilter(questionList?.get(currentPosition-1)?.incorrect_answers?.get(1)))
+        quesoptions.add(stringFilter(questionList?.get(currentPosition-1)?.incorrect_answers?.get(2)))
+        quesoptions.add(stringFilter(questionList?.get(currentPosition-1)?.correct_answer))
 
         quesoptions.shuffle()
 
@@ -267,6 +269,29 @@ class QuizQuestionsActivity : AppCompatActivity() {
         // setting progress bar progress
         binding.pbProgress.progress = currentPosition
         binding.tvProgress.text = "$currentPosition"+"/ 10"
+    }
+
+
+    private fun stringFilter(string: String?):String?{
+
+        var str = string
+
+        str = str?.replace("&nbsp;","")
+        str = str?.replace("&quot;","\"")
+        str = str?.replace("&lt;","<")
+        str = str?.replace("&amp;","&")
+        str = str?.replace("&apos;","\'")
+        str = str?.replace("&gt;",">")
+
+        str = str?.replace("&#160;","")
+        str = str?.replace("&#034;","\"")
+        str = str?.replace("&#060;","<")
+        str = str?.replace("&#038;","&")
+        str = str?.replace("&#039;","\'")
+        str = str?.replace("&#062;",">")
+
+
+        return str
     }
 
 }
