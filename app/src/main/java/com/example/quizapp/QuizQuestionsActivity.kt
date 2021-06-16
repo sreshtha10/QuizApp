@@ -19,11 +19,16 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         val questionHandler = intent.getSerializableExtra("EXTRA_QuestionHandler") as QuestionHandler
 
-        Toast.makeText(
+        /*Toast.makeText(
             this,
             questionHandler.results.toString(),
             Toast.LENGTH_LONG
         ).show()
+        */
+
+
+
+
 
 
     }
