@@ -1,5 +1,6 @@
 package com.example.quizapp
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -37,18 +38,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
 
 
-        // setting progress bar progress
-        binding.pbProgress.progress = currentPosition
-        binding.tvProgress.text = "${currentPosition} / 10"
-
-        setQuestion(currentPosition)
-
-
-
-
-
-
-
+        setQuestion()
 
 
 
@@ -86,20 +76,43 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         // submit button
         binding.btnSubmit.setOnClickListener {
-            setCorrectColor()
+            if(binding.btnSubmit.text.toString().lowercase().equals("submit")){
+                setCorrectColor()
+                if(options[0].text.equals(questionList?.get(currentPosition-1)?.correct_answer) && selectedOption == 1){
+                    score += 1
+                }
+                if(options[1].text.equals(questionList?.get(currentPosition-1)?.correct_answer) && selectedOption == 2){
+                    score += 1
+                }
+                if(options[2].text.equals(questionList?.get(currentPosition-1)?.correct_answer) && selectedOption == 3){
+                    score += 1
+                }
+                if(options[3].text.equals(questionList?.get(currentPosition-1)?.correct_answer) && selectedOption == 4){
+                    score += 1
+                }
 
-            if(options[0].text.equals(questionList?.get(currentPosition-1)?.correct_answer) && selectedOption == 1){
-                score += 1
+
+                if(currentPosition == 10){
+                    binding.btnSubmit.text = "FINISH"
+                }
+                else{
+                    binding.btnSubmit.text = "GO TO NEXT QUESTION"
+                }
+                return@setOnClickListener
             }
-            if(options[1].text.equals(questionList?.get(currentPosition-1)?.correct_answer) && selectedOption == 2){
-                score += 1
+            else if(binding.btnSubmit.text.toString().lowercase().equals("go to next question")){
+
+                currentPosition += 1
+                setQuestion()
+                setProgressBar()
+                defaultOptionsView()
+                binding.btnSubmit.text = "SUBMIT"
             }
-            if(options[2].text.equals(questionList?.get(currentPosition-1)?.correct_answer) && selectedOption == 3){
-                score += 1
+            else{
+                // finish
+
             }
-            if(options[3].text.equals(questionList?.get(currentPosition-1)?.correct_answer) && selectedOption == 4){
-                score += 1
-            }
+
 
         }
 
@@ -118,6 +131,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
         }
 
         for(option in options){
+            option.setTextColor(Color.parseColor("#7A8089"))
             option.background = ContextCompat.getDrawable(
                 this,
                 R.drawable.option_border
@@ -164,7 +178,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
 
 
-    private fun setQuestion(currentPosition: Int){
+    private fun setQuestion(){
 
         if(!this::binding.isInitialized){
             return
@@ -181,6 +195,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
         Quesoptions.add(questionList?.get(currentPosition-1)?.incorrect_answers?.get(2))
         Quesoptions.add(questionList?.get(currentPosition-1)?.correct_answer)
 
+        Quesoptions.shuffle()
 
         binding.tvOptionOne.text = Quesoptions[0]
         binding.tvOptionTwo.text = Quesoptions[1]
@@ -197,6 +212,8 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         if(options[0].text.equals(questionList?.get(currentPosition-1)?.correct_answer))
         {
+
+           options[0].setTextColor(Color.parseColor("#000000"))
            options[0].background = ContextCompat.getDrawable(
                this,
                R.drawable.correct_answer
@@ -204,6 +221,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
         }
         if(options[1].text.equals(questionList?.get(currentPosition-1)?.correct_answer))
         {
+            options[1].setTextColor(Color.parseColor("#000000"))
             options[1].background = ContextCompat.getDrawable(
                 this,
                 R.drawable.correct_answer
@@ -211,6 +229,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
         }
         if(options[2].text.equals(questionList?.get(currentPosition-1)?.correct_answer))
         {
+            options[2].setTextColor(Color.parseColor("#000000"))
             options[2].background = ContextCompat.getDrawable(
                 this,
                 R.drawable.correct_answer
@@ -218,12 +237,21 @@ class QuizQuestionsActivity : AppCompatActivity() {
         }
         if(options[3].text.equals(questionList?.get(currentPosition-1)?.correct_answer))
         {
+            options[3].setTextColor(Color.parseColor("#000000"))
             options[3].background = ContextCompat.getDrawable(
                 this,
                 R.drawable.correct_answer
             )
         }
 
+    }
+
+
+    private fun setProgressBar(){
+
+        // setting progress bar progress
+        binding.pbProgress.progress = currentPosition
+        binding.tvProgress.text = "${currentPosition} / 10"
     }
 
 }
