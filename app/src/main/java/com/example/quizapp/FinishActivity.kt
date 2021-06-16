@@ -25,6 +25,16 @@ class FinishActivity : AppCompatActivity() {
         binding.tvFinish.text = "${name}, your score is ${score}"
 
 
+        if(score?.toInt() == 10){
+            binding.imageView.setImageResource(R.drawable.gold_trophy)
+        }
+        else if(score?.toInt()!! <= 9 && score?.toInt()!! >= 7 ){
+            binding.imageView.setImageResource(R.drawable.silver_trophy)
+        }
+        else{
+            binding.imageView.setImageResource(R.drawable.bronze_trophy)
+        }
+
         binding.btnPlayAgain.setOnClickListener {
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
