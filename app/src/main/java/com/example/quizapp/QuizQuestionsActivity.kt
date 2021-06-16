@@ -44,7 +44,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
 
         setQuestion()
-
+        setProgressBar()
 
 
 
@@ -118,6 +118,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
                 setQuestion()
                 setProgressBar()
                 defaultOptionsView()
+                selectedOption = 0
                 binding.btnSubmit.text = getString(R.string.submit)
             }
             else{
