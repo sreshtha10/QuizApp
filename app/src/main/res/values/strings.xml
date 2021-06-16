@@ -8,4 +8,11 @@
     <string name="go_to_next_question">GO TO NEXT QUESTION</string>
     <string name="submit">SUBMIT</string>
     <string name="play_again">Play Again</string>
+    <string name="difficulty_level">Difficulty level</string>
+
+    <string-array name="difficulties">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
 </resources>
