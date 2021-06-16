@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(this,QuizQuestionsActivity::class.java)
 
-        val name = binding.etName.text.toString()
+
 
         binding.spDifficulty.onItemSelectedListener = object:AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.btnStart.setOnClickListener {
+            val name = binding.etName.text.toString()
             fetchFromAPI{
                 intent.putExtra("EXTRA_QuestionHandler",it)
 
