@@ -18,10 +18,11 @@ class FinishActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        val name = intent.getStringExtra("EXTRA_NAME")
 
         val score = intent.getStringExtra("EXTRA_SCORE")
 
-        binding.tvFinish.text = "Your score is $score"
+        binding.tvFinish.text = "${name}, your score is ${score}"
 
 
         binding.btnPlayAgain.setOnClickListener {

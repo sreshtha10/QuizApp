@@ -29,10 +29,12 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(this,QuizQuestionsActivity::class.java)
 
+        val name = binding.etName.text.toString()
 
 
         fetchFromAPI{
             intent.putExtra("EXTRA_QuestionHandler",it)
+
             Log.d("apiResult",it.results.toString())
 
         }
@@ -50,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            intent.putExtra("EXTRA_NAME",name)
             startActivity(intent)
             finish()
 

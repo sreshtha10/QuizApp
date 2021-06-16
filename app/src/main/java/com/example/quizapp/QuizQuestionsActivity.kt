@@ -4,7 +4,9 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.quizapp.databinding.ActivityQuizQuestionsBinding
 
@@ -33,7 +35,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         val questionHandler = intent.getSerializableExtra("EXTRA_QuestionHandler") as QuestionHandler
 
-
+        val name = intent.getStringExtra("EXTRA_NAME")
         //List of questions
         questionList = questionHandler.results
 
@@ -77,6 +79,13 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         // submit button
         binding.btnSubmit.setOnClickListener {
+            if(selectedOption == 0){
+                val toast = Toast.makeText(this,"Please select an option !",Toast.LENGTH_SHORT)
+                toast.setGravity(Gravity.CENTER,0,0)
+                toast.show()
+                return@setOnClickListener
+
+            }
             if(binding.btnSubmit.text.toString().lowercase() == "submit"){
                 setCorrectColor()
                 if(options[0].text.equals(questionList?.get(currentPosition-1)?.correct_answer) && selectedOption == 1){
@@ -113,6 +122,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
                 // finish
                 Intent(this,FinishActivity::class.java).also{
                     it.putExtra("EXTRA_SCORE",score.toString())
+                    it.putExtra("EXTRA_NAME",name)
                     startActivity(it)
                 }
                 finish()
