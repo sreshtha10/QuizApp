@@ -12,17 +12,32 @@ import com.example.quizapp.databinding.ActivityMainBinding
 import com.google.gson.Gson
 
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var questionHandler: QuestionHandler
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
+        val intent = Intent(this,QuizQuestionsActivity::class.java)
+
+
+
+        fetchFromAPI{
+            intent.putExtra("EXTRA_QuestionHandler",it)
+            Log.d("apiResult",it.results.toString())
+
+        }
+
+
 
 
 
@@ -35,38 +50,11 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            Intent(this, QuizQuestionsActivity::class.java).also {
-                startActivity(it)
-            }
+            startActivity(intent)
+
+
         }
 
-
-
-
-
-        val url = "https://opentdb.com/api.php?amount=10&type=multiple"
-        val requestQueue = Volley.newRequestQueue(this)
-
-        val stringRequest = StringRequest(Request.Method.GET,url,
-
-            {
-                val gson= Gson()
-                questionHandler = gson.fromJson(it,QuestionHandler::class.java)
-
-                Log.d("CODE",questionHandler.results.toString())
-
-
-            },
-
-            {
-                Log.d("Code","error")
-                // display toast
-            }
-
-            )
-
-
-        requestQueue.add(stringRequest)
 
 
 
@@ -75,6 +63,44 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
+
+
+
+
+
+
+    private fun fetchFromAPI(callback:(QuestionHandler)->Unit){
+
+        val url = "https://opentdb.com/api.php?amount=10&type=multiple"
+        val requestQueue = Volley.newRequestQueue(this)
+
+
+
+        val stringRequest = StringRequest(
+            Request.Method.GET,
+            url,
+            {
+                val gson = Gson()
+                val questionHandler = gson.fromJson(it,QuestionHandler::class.java)
+                Log.d("apiFetch", "success")
+                callback.invoke(questionHandler)
+            },
+
+            {
+                Log.d("apiFetch", "error")
+                Toast.makeText(
+                    this, "Please check your Internet Connection", Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        )
+        requestQueue.add(stringRequest)
+
+    }
+
+
 
 }
 
