@@ -4,6 +4,7 @@
 ## About
 
 A simple and fun android app for trivia quizzes.
+
 ___
 
 
@@ -13,15 +14,16 @@ ___
 
 ## Screenshots
 
-![](screenshots/s1.jpg)
+<img src="https://github.com/sreshtha10/QuizApp/screenshots/s1.jpg" width=50% height=50%>
 
-![](screenshots/s2.jpg)
+<img src="https://github.com/sreshtha10/QuizApp/screenshots/s2.jpg" width=50% height=50%>
 
-![](screenshots/s3.jpg)
+<img src="https://github.com/sreshtha10/QuizApp/screenshots/s3.jpg" width=50% height=50%>
 
-![](screenshots/s4.jpg)
+<img src="https://github.com/sreshtha10/QuizApp/screenshots/s4.jpg" width=50% height=50%>
 
-![](screenshots/s5.jpg)
+<img src="https://github.com/sreshtha10/QuizApp/screenshots/s5.jpg" width=50% height=50%>
+
 
 ___
 
