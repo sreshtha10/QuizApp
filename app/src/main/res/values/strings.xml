@@ -9,6 +9,7 @@
     <string name="submit">SUBMIT</string>
     <string name="play_again">Play Again</string>
     <string name="difficulty_level">Difficulty level</string>
+    <string name="source_code">Source code</string>
 
     <string-array name="difficulties">
         <item>Easy</item>

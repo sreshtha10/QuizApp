@@ -1,9 +1,12 @@
 package com.example.quizapp
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
@@ -123,6 +126,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.app_menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menuItem_source_code -> Intent(Intent.ACTION_VIEW).also {
+                it.data = Uri.parse("http://www.github.com/sreshtha10/QuizApp")
+                startActivity(it)
+            }
+        }
+        return true
+    }
 
 
 }
