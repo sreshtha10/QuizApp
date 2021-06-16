@@ -1,5 +1,6 @@
 package com.example.quizapp
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -76,7 +77,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         // submit button
         binding.btnSubmit.setOnClickListener {
-            if(binding.btnSubmit.text.toString().lowercase().equals("submit")){
+            if(binding.btnSubmit.text.toString().lowercase() == "submit"){
                 setCorrectColor()
                 if(options[0].text.equals(questionList?.get(currentPosition-1)?.correct_answer) && selectedOption == 1){
                     score += 1
@@ -93,24 +94,28 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
 
                 if(currentPosition == 10){
-                    binding.btnSubmit.text = "FINISH"
+                    binding.btnSubmit.text = getString(R.string.finish)
                 }
                 else{
-                    binding.btnSubmit.text = "GO TO NEXT QUESTION"
+                    binding.btnSubmit.text = getString(R.string.go_to_next_question)
                 }
                 return@setOnClickListener
             }
-            else if(binding.btnSubmit.text.toString().lowercase().equals("go to next question")){
+            else if(binding.btnSubmit.text.toString().lowercase() == "go to next question"){
 
                 currentPosition += 1
                 setQuestion()
                 setProgressBar()
                 defaultOptionsView()
-                binding.btnSubmit.text = "SUBMIT"
+                binding.btnSubmit.text = getString(R.string.submit)
             }
             else{
                 // finish
-
+                Intent(this,FinishActivity::class.java).also{
+                    it.putExtra("EXTRA_SCORE",score.toString())
+                    startActivity(it)
+                }
+                finish()
             }
 
 
@@ -188,19 +193,19 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         binding.tvQuestion.text = question
 
-        val Quesoptions= mutableListOf<String?>()
+        val quesoptions= mutableListOf<String?>()
 
-        Quesoptions.add(questionList?.get(currentPosition-1)?.incorrect_answers?.get(0))
-        Quesoptions.add(questionList?.get(currentPosition-1)?.incorrect_answers?.get(1))
-        Quesoptions.add(questionList?.get(currentPosition-1)?.incorrect_answers?.get(2))
-        Quesoptions.add(questionList?.get(currentPosition-1)?.correct_answer)
+        quesoptions.add(questionList?.get(currentPosition-1)?.incorrect_answers?.get(0))
+        quesoptions.add(questionList?.get(currentPosition-1)?.incorrect_answers?.get(1))
+        quesoptions.add(questionList?.get(currentPosition-1)?.incorrect_answers?.get(2))
+        quesoptions.add(questionList?.get(currentPosition-1)?.correct_answer)
 
-        Quesoptions.shuffle()
+        quesoptions.shuffle()
 
-        binding.tvOptionOne.text = Quesoptions[0]
-        binding.tvOptionTwo.text = Quesoptions[1]
-        binding.tvOptionThree.text = Quesoptions[2]
-        binding.tvOptionFour.text = Quesoptions[3]
+        binding.tvOptionOne.text = quesoptions[0]
+        binding.tvOptionTwo.text = quesoptions[1]
+        binding.tvOptionThree.text = quesoptions[2]
+        binding.tvOptionFour.text = quesoptions[3]
     }
 
 
@@ -251,7 +256,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         // setting progress bar progress
         binding.pbProgress.progress = currentPosition
-        binding.tvProgress.text = "${currentPosition} / 10"
+        binding.tvProgress.text = "$currentPosition"+"/ 10"
     }
 
 }

@@ -4,4 +4,8 @@
     <string name="name">Name</string>
     <string name="start">Start</string>
     <string name="lightbulb">LightBulb</string>
+    <string name="finish">FINISH</string>
+    <string name="go_to_next_question">GO TO NEXT QUESTION</string>
+    <string name="submit">SUBMIT</string>
+    <string name="play_again">Play Again</string>
 </resources>
